@@ -20,24 +20,6 @@ mod ERC721Preset3 {
     use src::ERC721::ERC721Impl; // Import ERC721Base implementation
     use src::ERC721; // Import ERC721 contract (storage, events ,etc)
 
-    //TODO remove once in corelib
-    impl StorageAccessU64 of StorageAccess::<u64> {
-        fn read(address_domain: felt, base: StorageBaseAddress) -> Result::<u64, Array::<felt>> {
-            Result::Ok(
-                StorageAccess::<felt>::read(
-                    address_domain, base
-                )?.try_into().expect('StorageAccessU64 - non u64')
-            )
-        }
-        #[inline(always)]
-        fn write(
-            address_domain: felt, base: StorageBaseAddress, value: u64
-        ) -> Result::<(), Array::<felt>> {
-            StorageAccess::<felt>::write(address_domain, base, value.into())
-        }
-    }
-
-
     ////////////////////////////////
     // STORAGE
     ////////////////////////////////

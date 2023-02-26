@@ -5,6 +5,7 @@ use src::ERC721Preset3::ERC721;
 use zeroable::Zeroable;
 use starknet::get_caller_address;
 use starknet::ContractAddressZeroable;
+use starknet::contract_address::ContractAddressPartialEq;
 use starknet::ContractAddressIntoFelt;
 use starknet::FeltTryIntoContractAddress;
 use traits::Into;

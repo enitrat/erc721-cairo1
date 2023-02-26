@@ -1,68 +1,17 @@
-//TODO fix this once ContractAddressSerde clash is fixed
-// #[abi]
-trait IERC721 {
-    fn constructor(name_: felt, symbol_: felt);
-    fn get_name() -> felt;
-    fn get_symbol() -> felt;
-    fn balance_of(owner: felt) -> u256;
-    fn owner_of(token_id: u256) -> ContractAddress;
-    fn get_approved(token_id: u256) -> ContractAddress;
-    fn is_approved_for_all(owner: ContractAddress, operator: ContractAddress) -> bool;
-    fn get_token_uri(token_id: u256) -> felt;
-    fn approve(to: ContractAddress, token_id: u256);
-    fn set_approval_for_all(operator: ContractAddress, approved: bool);
-    fn transfer_from(from: ContractAddress, to: ContractAddress, token_id: u256);
-    // fn safe_transfer_from(from: ContractAddress, to: ContractAddress, token_id: u256);
-    // fn safe_transfer_from(
-    // from: ContractAddress, to: ContractAddress, token_id: u256, data: felt
-    // );
-    fn assert_only_token_owner(token_id: u256);
-    fn is_approved_or_owner(spender: ContractAddress, token_id: u256) -> bool;
-    fn _approve(to: ContractAddress, token_id: u256);
-    fn _transfer(from: ContractAddress, to: ContractAddress, token_id: u256);
-    fn _mint(to: ContractAddress, token_id: u256);
-    fn _burn(token_id: u256);
-    fn _set_token_uri(token_id: u256, token_uri: felt);
-}
-
-
 #[contract]
 mod ERC721 {
     use zeroable::Zeroable;
     use starknet::get_caller_address;
     use starknet::ContractAddressZeroable;
     use starknet::ContractAddressIntoFelt;
-    // use starknet::ContractAddressPartialEq;
+    use starknet::contract_address::ContractAddressPartialEq;
     use starknet::FeltTryIntoContractAddress;
     use starknet::contract_address_try_from_felt;
     use traits::Into;
     use traits::TryInto;
     use array::ArrayTrait;
     use option::OptionTrait;
-    use super::IERC721;
-    // use erc721::interfaces::IERC721ReceiverDispatcher;
-    // use erc721::interfaces::IERC165Dispatcher;
-
-    impl ContractAddressPartialEq of traits::PartialEq::<ContractAddress> {
-        #[inline(always)]
-        fn eq(a: ContractAddress, b: ContractAddress) -> bool {
-            a.into() == b.into()
-        }
-        #[inline(always)]
-        fn ne(a: ContractAddress, b: ContractAddress) -> bool {
-            !(a == b)
-        }
-    }
-
-    //FIXME add this in corelib
-    // impl ContractAddressSerde of serde::Serde::<ContractAddress> {
-    //     fn serialize(ref serialized: Array::<felt>, input: ContractAddress) {
-    //         serde::Serde::<felt>::serialize(ref serialized, input.into());
-    //     }
-    //     fn deserialize(ref serialized: Array::<felt>) -> Option::<ContractAddress> {
-    //         Option::Some(serde::Serde::<felt>::deserialize(ref serialized)?.try_into().unwrap(), )
-    //     }
-    // }
+    use src::interfaces::IERC721;
 
     ////////////////////////////////
     // STORAGE
@@ -121,9 +70,9 @@ mod ERC721 {
         }
 
         #[view]
-        fn balance_of(owner: felt) -> u256 {
+        fn balance_of(owner: ContractAddress) -> u256 {
             assert(!owner.is_zero(), 'OWNER_IS_ZERO');
-            balances::read(owner)
+            balances::read(owner.into())
         }
 
         #[view]
@@ -153,8 +102,6 @@ mod ERC721 {
         ////////////////////////////////
         // EXTERNAL FUNCTIONS
         ////////////////////////////////
-
-        //TODO add a mint function here
 
         #[external]
         fn approve(to: ContractAddress, token_id: u256) {
@@ -193,31 +140,6 @@ mod ERC721 {
             IERC721::_transfer(from, to, token_id);
         }
 
-        //TODO check for IERC165 support
-        // const IERC721_RECEIVER_ID: felt = 0x150b7a02;
-        // const IACCOUNT_ID: felt = 0xa66bd575;
-
-        // #[external]
-        // fn safe_transfer_from(
-        //     from: ContractAddress, to: ContractAddress, token_id: u256, data: Array::<felt>
-        // ) {
-        //     let caller = get_caller_address();
-        //     assert(IERC721::is_approved_or_owner(caller, token_id), 'ERC721: not approved');
-
-        //     if IERC165Dispatcher::supports_interface(
-        //         to, IERC721_RECEIVER_ID
-        //     ) {
-        //         let selector = IERC721ReceiverDispatcher::on_erc721_received(
-        //             to, caller, from, token_id, data
-        //         );
-        //         assert(selector == IERC721_RECEIVER_ID, 'ERC721: not ERC721Receiver');
-        //     } else {
-        //         assert(
-        //             IERC165Dispatcher::supports_interface(to, IACCOUNT_ID), 'ERC721: wrong interface'
-        //         );
-        //     }
-        //     _transfer(from, to, token_id);
-        // }
 
         ////////////////////////////////
         // INTERNAL_FUNCTIONS

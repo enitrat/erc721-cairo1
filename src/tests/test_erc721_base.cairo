@@ -4,6 +4,7 @@ use src::ERC721::IERC721;
 use zeroable::Zeroable;
 use starknet::get_caller_address;
 use starknet::ContractAddressZeroable;
+use starknet::contract_address::ContractAddressPartialEq;
 use starknet::ContractAddressIntoFelt;
 use starknet::FeltTryIntoContractAddress;
 use traits::Into;
@@ -37,7 +38,7 @@ fn test_balance_of() {
     let me: felt = 123;
     ERC721::balances::write(me, 1.into());
 
-    let balance = IERC721::balance_of(me);
+    let balance = IERC721::balance_of(me.try_into().unwrap());
     assert(balance == 1.into(), 'wrong balance');
 }
 
