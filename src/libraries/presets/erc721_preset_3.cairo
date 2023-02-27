@@ -1,5 +1,5 @@
 #[contract]
-mod ERC721Preset3 {
+mod ERC721Preset3Library {
     // Import core library requirements
     use zeroable::Zeroable;
     use starknet::get_caller_address;
@@ -15,12 +15,14 @@ mod ERC721Preset3 {
     use array::ArrayTrait;
     use option::OptionTrait;
 
-    // Import Base ERC721 contract
-    use src::ERC721::IERC721; // Import IERC721 interface
-    use src::ERC721::ERC721Impl; // Import ERC721Base implementation
-    use src::ERC721; // Import ERC721 contract (storage, events ,etc)
+    use src::corelib_extension::StorageAccessContractAddress;
 
-    use src::presets::interfaces::IERC721Preset3;
+    // Import Base ERC721 contract
+    use src::interfaces::IERC721; // Import IERC721 interface
+    use src::libraries::ERC721Library::ERC721Impl; // Import ERC721Base implementation
+    use src::interfaces::IERC721Dispatcher;
+
+    use src::interfaces::IERC721Preset3;
     ////////////////////////////////
     // STORAGE
     ////////////////////////////////

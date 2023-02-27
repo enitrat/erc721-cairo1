@@ -1,5 +1,5 @@
 #[contract]
-mod ERC721 {
+mod ERC721Library {
     use zeroable::Zeroable;
     use starknet::get_caller_address;
     use starknet::ContractAddressZeroable;
@@ -11,8 +11,8 @@ mod ERC721 {
     use traits::TryInto;
     use array::ArrayTrait;
     use option::OptionTrait;
-    use src::erc721_interface::IERC721;
 
+    use src::interfaces::IERC721;
     use src::corelib_extension::StorageAccessContractAddress;
 
 
