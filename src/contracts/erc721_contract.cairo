@@ -23,14 +23,7 @@ mod ERC721Contract {
     // STORAGE
     ////////////////////////////////
 
-    // From library
-    // use src::libraries::erc721_library::ERC721Library::name;
-    // use src::libraries::erc721_library::ERC721Library::symbol;
-    // use src::libraries::erc721_library::ERC721Library::token_uri;
-    // use src::libraries::erc721_library::ERC721Library::token_approvals;
-    // use src::libraries::erc721_library::ERC721Library::owners;
-    // use src::libraries::erc721_library::ERC721Library::balances;
-    // use src::libraries::erc721_library::ERC721Library::operator_approvals;
+    // Uses library storage
 
     ////////////////////////////////
     // EVENTS
@@ -46,10 +39,6 @@ mod ERC721Contract {
 
     #[event]
     fn ApprovalForAll(owner: ContractAddress, operator: ContractAddress, approved: bool) {}
-
-    ////////////////////////////////
-    // TRAIT
-    ////////////////////////////////
 
     ////////////////////////////////
     // CONSTRUCTOR

@@ -24,13 +24,14 @@ mod ERC721Preset2Library {
     use src::interfaces::IERC721Dispatcher;
 
     use src::interfaces::IERC721Preset2;
+    use src::interfaces::IOwnable;
+    use src::libraries::ownable_library::OwnableLibrary::OwnableImpl; // Import ERC721Base implementation
 
 
     ////////////////////////////////
     // STORAGE
     ////////////////////////////////
 
-    // Storage imported from IERC721
     struct Storage {
         total_supply: u128,
         max_supply: u128,
@@ -42,27 +43,16 @@ mod ERC721Preset2Library {
     // EVENTS
     ////////////////////////////////
 
-    // Events imported from IERC721
+    // No extra events are required for this contract
 
     ////////////////////////////////
-    // TRAIT
+    // TRAIT IMPL
     ////////////////////////////////
-
-    #[constructor]
-    fn constructor(
-        name_: felt,
-        symbol_: felt,
-        max_supply_: u128,
-        max_date_: u64,
-        whitelited_collection_: ContractAddress
-    ) {
-        IERC721::constructor(name_, symbol_);
-        max_supply::write(max_supply_);
-        max_date::write(max_date_);
-        whitelited_collection::write(whitelited_collection_);
-    }
 
     impl ERC721Preset2Impl of IERC721Preset2 {
+        ////////////////////////////////
+        // CONSTRUCTOR
+        ////////////////////////////////
         #[constructor]
         fn constructor(
             name_: felt,
@@ -77,9 +67,12 @@ mod ERC721Preset2Library {
             whitelited_collection::write(whitelited_collection_);
         }
 
+        ////////////////////////////////
+        // EXTERNAL FUNCTIONS
+        ////////////////////////////////
         #[external]
         fn mint(to: ContractAddress, token_id: u256) {
-            //TODO assert only contract owner
+            //TODO assert only contact owner
             let total_supply = total_supply::read();
             let caller = get_caller_address();
             let whitelited_collection = whitelited_collection::read();

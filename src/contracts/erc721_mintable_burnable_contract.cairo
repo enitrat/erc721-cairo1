@@ -23,7 +23,11 @@ mod ERC721MintableBurnableContract {
     // STORAGE
     ////////////////////////////////
 
-    // Storage imported from IERC721
+    // Uses library storage
+
+    ////////////////////////////////
+    // EVENTS
+    ////////////////////////////////
 
     #[event]
     fn Transfer(from: ContractAddress, to: ContractAddress, token_id: u256) {}
@@ -34,9 +38,6 @@ mod ERC721MintableBurnableContract {
     #[event]
     fn ApprovalForAll(owner: ContractAddress, operator: ContractAddress, approved: bool) {}
 
-    ////////////////////////////////
-    // TRAIT
-    ////////////////////////////////
 
     ////////////////////////////////
     // CONSTRUCTOR
@@ -112,7 +113,6 @@ mod ERC721MintableBurnableContract {
     ) {
         IERC721::safe_transfer_from(from, to, token_id, data);
     }
-
 
     #[external]
     fn mint(to: ContractAddress, token_id: u256) { //pass

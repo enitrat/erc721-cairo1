@@ -24,24 +24,20 @@ mod ERC721MintableBurnableLibrary {
     // STORAGE
     ////////////////////////////////
 
-    // Storage imported from IERC721
-
+    // No extra events are required for this contract
     ////////////////////////////////
     // EVENTS
     ////////////////////////////////
 
-    // Events imported from IERC721
-
-    ////////////////////////////////
-    // TRAIT
-    ////////////////////////////////
+    // Events are defined at contract level
 
     impl ERC721MintableBurnableImpl of IERC721MintableBurnable {
-        #[external]
+        ////////////////////////////////
+        // EXTERNAL FUNCTIONS
+        ////////////////////////////////
         fn mint(to: ContractAddress, token_id: u256) { //pass
             IERC721::_mint(to, token_id);
         }
-        #[external]
         fn burn(token_id: u256) { //pass
             IERC721::_burn(token_id);
         }

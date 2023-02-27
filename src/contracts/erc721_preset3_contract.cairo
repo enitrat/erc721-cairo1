@@ -25,6 +25,10 @@ mod ERC721Preset3Contract {
     ////////////////////////////////
 
     // Storage imported from IERC721
+    
+    ////////////////////////////////
+    // EVENTS
+    ////////////////////////////////
 
     #[event]
     fn Transfer(from: ContractAddress, to: ContractAddress, token_id: u256) {}
@@ -34,10 +38,6 @@ mod ERC721Preset3Contract {
 
     #[event]
     fn ApprovalForAll(owner: ContractAddress, operator: ContractAddress, approved: bool) {}
-
-    ////////////////////////////////
-    // TRAIT
-    ////////////////////////////////
 
     ////////////////////////////////
     // CONSTRUCTOR

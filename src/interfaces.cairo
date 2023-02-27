@@ -60,3 +60,13 @@ trait IERC721Receiver {
 trait IERC165 {
     fn supports_interface(interface_id: felt) -> bool;
 }
+
+#[abi]
+trait IOwnable {
+    fn initializer(owner_: ContractAddress);
+    fn assert_only_owner();
+    fn get_owner() -> ContractAddress;
+    fn transfer_ownership(new_owner: ContractAddress);
+    fn renounce_ownership();
+    fn _transfer_ownership(new_owner: ContractAddress);
+}

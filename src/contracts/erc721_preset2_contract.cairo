@@ -35,9 +35,6 @@ mod ERC721Preset2Contract {
     #[event]
     fn ApprovalForAll(owner: ContractAddress, operator: ContractAddress, approved: bool) {}
 
-    ////////////////////////////////
-    // TRAIT
-    ////////////////////////////////
 
     ////////////////////////////////
     // CONSTRUCTOR

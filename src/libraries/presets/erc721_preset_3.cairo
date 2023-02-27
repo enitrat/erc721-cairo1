@@ -27,7 +27,6 @@ mod ERC721Preset3Library {
     // STORAGE
     ////////////////////////////////
 
-    // Storage imported from IERC721
     struct Storage {
         total_supply: u128,
         max_supply: u128,
@@ -38,19 +37,21 @@ mod ERC721Preset3Library {
     // EVENTS
     ////////////////////////////////
 
-    // Events imported from IERC721
-
-    ////////////////////////////////
-    // TRAIT
-    ////////////////////////////////
+    // No extra events are required for this contract
 
     impl ERC721Preset3Impl of IERC721Preset3 {
-        #[constructor]
+        ////////////////////////////////
+        // CONSTRUCTOR
+        ////////////////////////////////
+
         fn constructor(name_: felt, symbol_: felt, max_supply_: u128, max_date_: u64) {
             IERC721::constructor(name_, symbol_);
             max_supply::write(max_supply_);
             max_date::write(max_date_);
         }
+        ////////////////////////////////
+        // EXTERNAL FUNCTIONS
+        ////////////////////////////////
 
         #[external]
         fn mint(to: ContractAddress, token_id: u256) {

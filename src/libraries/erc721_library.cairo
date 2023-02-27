@@ -57,7 +57,6 @@ mod ERC721Library {
         // CONSTRUCTOR
         ////////////////////////////////
 
-        #[constructor]
         fn constructor(name_: felt, symbol_: felt) {
             name::write(name_);
             symbol::write(symbol_);
@@ -67,42 +66,35 @@ mod ERC721Library {
         // VIEW FUNCTIONS
         ////////////////////////////////
 
-        #[view]
         fn get_name() -> felt {
             name::read()
         }
 
-        #[view]
         fn get_symbol() -> felt {
             symbol::read()
         }
 
-        #[view]
         fn balance_of(owner: ContractAddress) -> u256 {
             assert(!owner.is_zero(), 'OWNER_IS_ZERO');
             balances::read(owner.into())
         }
 
-        #[view]
         fn owner_of(token_id: u256) -> ContractAddress {
             let owner = owners::read(token_id);
             assert(!owner.is_zero(), 'TOKEN_NOT_EXISTS');
             owner.try_into().unwrap()
         }
 
-        #[view]
         fn get_approved(token_id: u256) -> ContractAddress {
             let owner = owners::read(token_id);
             assert(!owner.is_zero(), 'TOKEN_NOT_EXISTS');
             token_approvals::read(token_id).try_into().unwrap()
         }
 
-        #[view]
         fn is_approved_for_all(owner: ContractAddress, operator: ContractAddress) -> bool {
             operator_approvals::read((owner, operator, ))
         }
 
-        #[view]
         fn get_token_uri(token_id: u256) -> felt {
             token_uri::read(token_id)
         }
@@ -111,7 +103,6 @@ mod ERC721Library {
         // EXTERNAL FUNCTIONS
         ////////////////////////////////
 
-        #[external]
         fn approve(to: ContractAddress, token_id: u256) {
             let caller = get_caller_address();
             assert(!caller.is_zero(), 'APPROVE_ZERO_ADDRESS');
@@ -129,7 +120,6 @@ mod ERC721Library {
         }
 
 
-        #[external]
         fn set_approval_for_all(operator: ContractAddress, approved: bool) {
             let caller = get_caller_address();
             assert(!caller.is_zero() & !operator.is_zero(), 'CALLER_OR_OPERATOR_IS_ZERO');
@@ -138,7 +128,6 @@ mod ERC721Library {
             ApprovalForAll(caller, operator, approved);
         }
 
-        #[external]
         fn transfer_from(from: ContractAddress, to: ContractAddress, token_id: u256) {
             let caller = get_caller_address();
             assert(!caller.is_zero(), 'CALLER_IS_ZERO');
@@ -147,7 +136,6 @@ mod ERC721Library {
             IERC721::_transfer(from, to, token_id);
         }
 
-        #[external]
         fn safe_transfer_from(
             from: ContractAddress, to: ContractAddress, token_id: u256, data: Array::<felt>
         ) {
