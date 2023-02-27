@@ -1,5 +1,5 @@
 [package]
-name = "sbt"
+name = "src"
 version = "0.1.0"
 
 # See more keys and their definitions at https://github.com/software-mansion/scarb/blob/main/scarb/src/core/manifest/toml.rs

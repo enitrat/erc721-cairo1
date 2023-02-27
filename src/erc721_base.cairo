@@ -4,7 +4,7 @@ mod ERC721 {
     use starknet::get_caller_address;
     use starknet::ContractAddressZeroable;
     use starknet::ContractAddressIntoFelt;
-    use starknet::contract_address::ContractAddressPartialEq;
+    use src::corelib_extension::ContractAddressPartialEq;
     use starknet::FeltTryIntoContractAddress;
     use starknet::contract_address_try_from_felt;
     use traits::Into;

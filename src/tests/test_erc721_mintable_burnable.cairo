@@ -7,7 +7,7 @@ use zeroable::Zeroable;
 use starknet::get_caller_address;
 use starknet::ContractAddressZeroable;
 use starknet::ContractAddressIntoFelt;
-use starknet::contract_address::ContractAddressPartialEq;
+use src::corelib_extension::ContractAddressPartialEq;
 use starknet::FeltTryIntoContractAddress;
 use traits::Into;
 use traits::TryInto;

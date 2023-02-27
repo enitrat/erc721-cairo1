@@ -2,6 +2,7 @@
 
 use starknet::FeltTryIntoContractAddress;
 use starknet::ContractAddressIntoFelt;
+use starknet::contract_address_to_felt;
 use starknet::StorageAccess;
 use starknet::StorageBaseAddress;
 use starknet::SyscallResult;
@@ -17,5 +18,16 @@ impl StorageAccessContractAddress of StorageAccess::<ContractAddress> {
         address_domain: felt, base: StorageBaseAddress, value: ContractAddress
     ) -> SyscallResult::<()> {
         StorageAccess::<felt>::write(address_domain, base, value.into())
+    }
+}
+
+impl ContractAddressPartialEq of PartialEq::<ContractAddress> {
+    #[inline(always)]
+    fn eq(a: ContractAddress, b: ContractAddress) -> bool {
+        contract_address_to_felt(a) == contract_address_to_felt(b)
+    }
+    #[inline(always)]
+    fn ne(a: ContractAddress, b: ContractAddress) -> bool {
+        !(a == b)
     }
 }

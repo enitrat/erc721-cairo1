@@ -4,7 +4,7 @@ use src::ERC721Preset2::ERC721Preset2Impl;
 use src::ERC721Preset2::IERC721;
 use zeroable::Zeroable;
 use starknet::get_caller_address;
-use starknet::contract_address::ContractAddressPartialEq;
+use src::corelib_extension::ContractAddressPartialEq;
 use starknet::ContractAddressZeroable;
 use starknet::ContractAddressIntoFelt;
 use starknet::FeltTryIntoContractAddress;
@@ -60,4 +60,5 @@ fn test_mint_above_limit_date() {
 
 //     IERC721Preset2::mint(me, nft_id);
 // }
+
 
