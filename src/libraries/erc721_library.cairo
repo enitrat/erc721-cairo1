@@ -13,6 +13,8 @@ mod ERC721Library {
     use option::OptionTrait;
 
     use src::interfaces::IERC721;
+    use src::interfaces::IERC165Dispatcher;
+    use src::interfaces::IERC721ReceiverDispatcher;
     use src::corelib_extension::StorageAccessContractAddress;
 
 
@@ -46,6 +48,9 @@ mod ERC721Library {
     ////////////////////////////////
     // TRAIT
     ////////////////////////////////
+
+    const IERC721_RECEIVER_ID: felt = 0x150b7a02;
+    const IACCOUNT_ID: felt = 0xa66bd575;
 
     impl ERC721Impl of IERC721 {
         ////////////////////////////////
@@ -114,7 +119,6 @@ mod ERC721Library {
             let owner: ContractAddress = owners::read(token_id).try_into().unwrap();
             assert(owner != to, 'APPROVAL_TO_OWNER');
 
-            //TODO refactor this with internal _approve function
             if IERC721::is_approved_or_owner(
                 caller, token_id
             ) {
@@ -137,9 +141,29 @@ mod ERC721Library {
         #[external]
         fn transfer_from(from: ContractAddress, to: ContractAddress, token_id: u256) {
             let caller = get_caller_address();
-            assert(!caller.is_zero(), 'ERC721: caller is zero');
+            assert(!caller.is_zero(), 'CALLER_IS_ZERO');
             assert(IERC721::is_approved_or_owner(caller, token_id), 'NOT_APPROVED_NOR_OWNER');
 
+            IERC721::_transfer(from, to, token_id);
+        }
+
+        #[external]
+        fn safe_transfer_from(
+            from: ContractAddress, to: ContractAddress, token_id: u256, data: Array::<felt>
+        ) {
+            let caller = get_caller_address();
+            assert(IERC721::is_approved_or_owner(caller, token_id), 'NOT_APPROVED_NOR_OWNER');
+
+            if IERC165Dispatcher::supports_interface(
+                to, IERC721_RECEIVER_ID
+            ) {
+                let selector = IERC721ReceiverDispatcher::on_erc721_received(
+                    to, caller, from, token_id, data
+                );
+                assert(selector == IERC721_RECEIVER_ID, 'NOT_ERC721_RECEIVER');
+            } else {
+                assert(IERC165Dispatcher::supports_interface(to, IACCOUNT_ID), 'WRONG_INTERFACE');
+            }
             IERC721::_transfer(from, to, token_id);
         }
 

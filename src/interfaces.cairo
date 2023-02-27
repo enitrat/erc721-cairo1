@@ -13,9 +13,9 @@ trait IERC721 {
     fn set_approval_for_all(operator: ContractAddress, approved: bool);
     fn transfer_from(from: ContractAddress, to: ContractAddress, token_id: u256);
     // fn safe_transfer_from(from: ContractAddress, to: ContractAddress, token_id: u256);
-    // fn safe_transfer_from(
-    // from: ContractAddress, to: ContractAddress, token_id: u256, data: felt
-    // );
+    fn safe_transfer_from(
+        from: ContractAddress, to: ContractAddress, token_id: u256, data: Array::<felt>
+    );
     fn assert_only_token_owner(token_id: u256);
     fn is_approved_or_owner(spender: ContractAddress, token_id: u256) -> bool;
     fn _approve(to: ContractAddress, token_id: u256);
@@ -47,4 +47,16 @@ trait IERC721Preset3 {
 trait IERC721MintableBurnable {
     fn mint(to: ContractAddress, token_id: u256);
     fn burn(token_id: u256);
+}
+
+#[abi]
+trait IERC721Receiver {
+    fn on_erc721_received(
+        operator: ContractAddress, from_: ContractAddress, token_id: u256, data: Array::<felt>
+    ) -> felt;
+}
+
+#[abi]
+trait IERC165 {
+    fn supports_interface(interface_id: felt) -> bool;
 }

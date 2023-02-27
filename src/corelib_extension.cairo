@@ -31,3 +31,4 @@ impl ContractAddressPartialEq of PartialEq::<ContractAddress> {
         !(a == b)
     }
 }
+

@@ -122,6 +122,24 @@ fn test_transfer_from() {
     assert(new_owner == 456, 'wrong new owner');
 }
 
+//TODO not yet cairo1-compatible
+// #[test]
+// #[available_gas(2000000)]
+// fn test_safe_transfer_from() {
+//     ERC721Contract::constructor('Foo', 'BAR');
+//     let nft_id: u256 = integer::u256_from_felt(1);
+//     ERC721Library::owners::write(nft_id, 123);
+//     ERC721Library::balances::write(123, 1.into());
+
+//     let me = starknet::contract_address_const::<123>();
+//     let friend = starknet::contract_address_const::<456>();
+//     starknet_testing::set_caller_address(me);
+//     ERC721Contract::safe_transfer_from(me, friend, nft_id, ArrayTrait::new());
+
+//     let new_owner = ERC721Library::owners::read(nft_id);
+//     assert(new_owner == 456, 'wrong new owner');
+// }
+
 #[test]
 #[available_gas(2000000)]
 fn test_transfer_from_approved() {

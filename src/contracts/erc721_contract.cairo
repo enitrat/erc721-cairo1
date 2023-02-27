@@ -118,4 +118,11 @@ mod ERC721Contract {
     fn transfer_from(from: ContractAddress, to: ContractAddress, token_id: u256) {
         IERC721::transfer_from(from, to, token_id);
     }
+
+    #[external]
+    fn safe_transfer_from(
+        from: ContractAddress, to: ContractAddress, token_id: u256, data: Array::<felt>
+    ) {
+        IERC721::safe_transfer_from(from, to, token_id, data);
+    }
 }

@@ -107,6 +107,14 @@ mod ERC721MintableBurnableContract {
     }
 
     #[external]
+    fn safe_transfer_from(
+        from: ContractAddress, to: ContractAddress, token_id: u256, data: Array::<felt>
+    ) {
+        IERC721::safe_transfer_from(from, to, token_id, data);
+    }
+
+
+    #[external]
     fn mint(to: ContractAddress, token_id: u256) { //pass
         IERC721MintableBurnable::mint(to, token_id);
     }
