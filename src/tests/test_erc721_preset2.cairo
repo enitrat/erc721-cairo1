@@ -1,7 +1,7 @@
-use src::ERC721Preset2::IERC721Preset2; // Import trait
+use src::presets::interfaces::IERC721Preset2;
 use src::ERC721Preset2; // Import contract
+use src::ERC721Preset2::ERC721Preset2Impl;
 use src::ERC721Preset2::IERC721;
-use src::ERC721Preset2::ERC721;
 use zeroable::Zeroable;
 use starknet::get_caller_address;
 use starknet::contract_address::ContractAddressPartialEq;
@@ -49,7 +49,6 @@ fn test_mint_above_limit_date() {
     starknet_testing::set_block_timestamp(1_u64);
     IERC721Preset2::mint(me, nft_id);
 }
-
 //TODO not yet cairo1-compatible
 // #[test]
 // #[available_gas(2000000)]
@@ -61,3 +60,4 @@ fn test_mint_above_limit_date() {
 
 //     IERC721Preset2::mint(me, nft_id);
 // }
+

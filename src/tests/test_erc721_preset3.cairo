@@ -1,7 +1,7 @@
-use src::ERC721Preset3::IERC721Preset3; // Import trait
+use src::presets::interfaces::IERC721Preset3;
 use src::ERC721Preset3; // Import contract
+use src::ERC721Preset3::ERC721Preset3Impl;
 use src::ERC721Preset3::IERC721;
-use src::ERC721Preset3::ERC721;
 use zeroable::Zeroable;
 use starknet::get_caller_address;
 use starknet::ContractAddressZeroable;

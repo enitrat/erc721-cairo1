@@ -1,3 +1,4 @@
+use starknet::contract_address::ContractAddressSerde;
 #[abi]
 trait IERC721 {
     fn constructor(name_: felt, symbol_: felt);

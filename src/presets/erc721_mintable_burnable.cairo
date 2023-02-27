@@ -17,6 +17,8 @@ mod ERC721MintableBurnable {
     use src::ERC721::ERC721Impl; // Import ERC721Base implementation
     use src::ERC721; // Import ERC721 contract (storage, events ,etc)
 
+    use src::presets::interfaces::IERC721MintableBurnable;
+
     ////////////////////////////////
     // STORAGE
     ////////////////////////////////
@@ -33,10 +35,6 @@ mod ERC721MintableBurnable {
     // TRAIT
     ////////////////////////////////
 
-    trait IERC721MintableBurnable {
-        fn mint(to: ContractAddress, token_id: u256);
-        fn burn(token_id: u256);
-    }
 
     impl ERC721MintableBurnableImpl of IERC721MintableBurnable {
         #[external]

@@ -1,6 +1,8 @@
-use src::ERC721MintableBurnable::IERC721MintableBurnable;
+use src::presets::interfaces::IERC721MintableBurnable;
+use src::ERC721MintableBurnable::ERC721MintableBurnableImpl;
 use src::ERC721MintableBurnable::IERC721;
 use src::ERC721MintableBurnable::ERC721;
+
 use zeroable::Zeroable;
 use starknet::get_caller_address;
 use starknet::ContractAddressZeroable;

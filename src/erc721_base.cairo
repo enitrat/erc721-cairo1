@@ -11,7 +11,10 @@ mod ERC721 {
     use traits::TryInto;
     use array::ArrayTrait;
     use option::OptionTrait;
-    use src::interfaces::IERC721;
+    use src::erc721_interface::IERC721;
+
+    use src::corelib_extension::StorageAccessContractAddress;
+
 
     ////////////////////////////////
     // STORAGE

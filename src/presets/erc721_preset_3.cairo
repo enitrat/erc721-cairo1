@@ -20,6 +20,7 @@ mod ERC721Preset3 {
     use src::ERC721::ERC721Impl; // Import ERC721Base implementation
     use src::ERC721; // Import ERC721 contract (storage, events ,etc)
 
+    use src::presets::interfaces::IERC721Preset3;
     ////////////////////////////////
     // STORAGE
     ////////////////////////////////
@@ -40,11 +41,6 @@ mod ERC721Preset3 {
     ////////////////////////////////
     // TRAIT
     ////////////////////////////////
-
-    trait IERC721Preset3 {
-        fn constructor(name_: felt, symbol_: felt, max_supply: u128, max_date: u64);
-        fn mint(to: ContractAddress, token_id: u256);
-    }
 
     impl ERC721Preset3Impl of IERC721Preset3 {
         #[constructor]

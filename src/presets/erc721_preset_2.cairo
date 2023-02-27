@@ -1,15 +1,3 @@
-#[abi]
-trait IERC721Preset2 {
-    fn constructor(
-        name_: felt,
-        symbol_: felt,
-        max_supply: u128,
-        max_date: u64,
-        whitelited_collection_: ContractAddress
-    );
-    fn mint(to: ContractAddress, token_id: u256);
-}
-
 #[contract]
 mod ERC721Preset2 {
     // Import core library requirements
@@ -30,11 +18,12 @@ mod ERC721Preset2 {
 
     // Import Base ERC721 contract
     use src::ERC721::IERC721; // Import IERC721 interface
-    use src::interfaces::IERC721Dispatcher; // Import IERC721 dispatcher interface
+    use src::erc721_interface::IERC721Dispatcher;
     use src::ERC721::ERC721Impl; // Import ERC721Base implementation
     use src::ERC721; // Import ERC721 contract (storage, events ,etc)
 
-    use super::IERC721Preset2;
+    use src::presets::interfaces::IERC721Preset2;
+
 
 
     ////////////////////////////////

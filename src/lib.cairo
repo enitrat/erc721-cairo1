@@ -1,5 +1,6 @@
 // ERC721 intefaces
-mod interfaces;
+mod erc721_interface;
+use erc721_interface::IERC721;
 
 // Base ERC721 implementation
 mod erc721_base;
@@ -19,3 +20,5 @@ use presets::ERC721Preset2;
 // ERC721 tests
 ////////////////////////////////
 mod tests;
+
+mod corelib_extension;
